@@ -1,0 +1,31 @@
+contact = zoho.crm.getRecordById("Contacts",contact_ID);
+email = contact.get("Email");
+emailString = '%27' + email + '%27';
+// -
+// --- This is the base URL of the Analytics Dashboard
+// -
+urlBase = 'analytics_dashboard_base_URL?ZOHO_CRITERIA=%22Base%20Table%22.%22COLUMN%20Name%22%3D';
+// -
+if(contact.get("Start_Date").isNull() == true)
+{
+	// --- The URL Base is the url of the Analytics Dashboard plus the initial filter criteria, but without specifying the parameter
+	analyticsString = urlBase + emailString;
+}
+else
+{
+  // ---If the start_date is not empty, then we build the URL with the date filters included, formatting it as Zoho Analytics requires
+	startDate = contact.get("Start_Date");
+	endDate = contact.get("End_Date");
+	start = '%27' + startDate.toString("MM/dd/YY") + '%27';
+	end = '%27' + endDate.toString("MM/dd/YY") + '%27';
+	info end;
+	info start;
+	// --- We include the start and end date in this URL builder
+	analyticsString = urlBase + emailString + 'and%22Base%20Table%22.%22Closing%20Date%22>' + start + 'and%22Base%20Table%22.%22Closing%20Date%22<' + end;
+}
+info analyticsString;
+// -
+// --- Update the Analytics Link field on the Contact record to be able to merge into emails
+// -
+update = zoho.crm.updateRecord("Contacts",contact_ID,{"Analytics_Dashboard":analyticsString});
+info update;
