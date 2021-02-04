@@ -16,8 +16,8 @@ else
   // ---If the start_date is not empty, then we build the URL with the date filters included, formatting it as Zoho Analytics requires
 	startDate = contact.get("Start_Date");
 	endDate = contact.get("End_Date");
-	start = '%27' + startDate.toString("MM/dd/YY") + '%27';
-	end = '%27' + endDate.toString("MM/dd/YY") + '%27';
+	start = '%27' + startDate.toString("MM/dd/yy") + '%27';
+	end = '%27' + endDate.toString("MM/dd/yy") + '%27';
 	info end;
 	info start;
 	// --- We include the start and end date in this URL builder
